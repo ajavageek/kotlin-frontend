@@ -1,0 +1,15 @@
+{
+  "name": "kotlin-frontend",
+  "version": "0.0.1",
+  "description": "Sample to show Kotlin usage on front-end",
+  "author": "Nicolas Fränkel",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-exec": "^2.0.0"
+  },
+  "dependencies": {
+    "kotlin": "^1.1.0"
+  }
+}
