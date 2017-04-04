@@ -8,4 +8,6 @@ import org.w3c.dom.Element
 import kotlin.js.*
 
 @JsName("Map")
-external open class GoogleMap(element: Element?, options: Json)
+external open class GoogleMap(element: Element?) {
+    fun setOptions(options: Json)
+}

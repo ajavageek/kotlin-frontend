@@ -4,17 +4,39 @@ import kotlin.browser.document
 import kotlin.js.json
 
 
-internal class MapOptions(val center: LatitudeLongitude, val zoom: Byte)
-internal class LatitudeLongitude(val latitude: Double, val longitude: Double)
+internal class MapOptions {
+    lateinit var center: LatitudeLongitude
+    var zoom: Byte = 1
+    fun center(init: LatitudeLongitude.() -> Unit) {
+        center = LatitudeLongitude().apply(init)
+    }
+    fun toJson() = json("center" to center.toJson(), "zoom" to zoom)
+}
 
-internal fun LatitudeLongitude.toJson() = json("lat" to latitude, "lng" to longitude)
-internal fun MapOptions.toJson() = json("center" to center.toJson(), "zoom" to zoom)
+internal class LatitudeLongitude() {
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    fun toJson() = json("lat" to latitude, "lng" to longitude)
+}
 
-internal class KotlinGoogleMap(element: Element?, options: MapOptions) : GoogleMap(element, options.toJson())
+internal class KotlinGoogleMap(element: Element?) : GoogleMap(element) {
+    fun options(init: MapOptions.() -> Unit) {
+        val options = MapOptions().apply(init)
+        setOptions(options = options.toJson())
+    }
+}
+
+internal fun kotlinGoogleMap(element: Element?, init: KotlinGoogleMap.() -> Unit) = KotlinGoogleMap(element).apply(init)
 
 fun initMap() {
     val div = document.getElementById("map")
-    val latLng = LatitudeLongitude(latitude = -34.397, longitude = 150.644)
-    val options = MapOptions(center = latLng, zoom = 8)
-    KotlinGoogleMap(element = div, options = options)
+    kotlinGoogleMap(div) {
+        options {
+            zoom = 6
+            center {
+                latitude = 46.2050836
+                longitude = 6.1090691
+            }
+        }
+    }
 }
