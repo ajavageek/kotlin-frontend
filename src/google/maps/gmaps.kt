@@ -1,6 +1,4 @@
-@file:JsModule("google")
-@file:JsQualifier("maps")
-@file:JsNonModule
+@file:JsQualifier("google.maps")
 
 package google.maps
 
